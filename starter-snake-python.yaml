@@ -1,0 +1,26 @@
+namespace: starter-snake-python
+starter-snake-python:
+  defines: runnable
+  metadata:
+    name: starter-snake-python
+    description: >-
+      A simple python application meant to simulate the logic of a snake game
+      where the snake's moves are selected from a set of safe moves
+    icon: https://emojiapi.dev/api/v1/snake.svg
+  containers:
+    starter-snake-python:
+      build: .
+  services:
+    application-port:
+      container: starter-snake-python
+      port: <- $port
+      host-port: <- $port
+      publish: false
+      protocol: TCP
+      description: This port is used for the flask server to run on it
+  variables:
+    port:
+      env: PORT
+      type: int
+      description: Port for the application to run on
+      value: 8000

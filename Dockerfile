@@ -1,11 +1,14 @@
 FROM python:3.10.6-slim
 
-# Install app
-COPY . /usr/app
-WORKDIR /usr/app
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-# Install dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Run Battlesnake
-CMD [ "python", "main.py" ]
+COPY . .
+
+ENV PORT=8000
+
+EXPOSE 8000
+CMD [ "python", "server.py" ]
